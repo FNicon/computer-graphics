@@ -10,7 +10,7 @@
 
 /* ---- CONSTANTS ----- */
 
-#define LETTER_NUMBER 1  // first LETTER_NUMBER letters which pixels are defined in ../font/font.txt
+#define LETTER_NUMBER 2  // first LETTER_NUMBER letters which pixels are defined in ../font/font.txt
 #define ROW_NUMBER 10  // row size of every letter
 #define COL_NUMBER 7  // col size of every letter
 
