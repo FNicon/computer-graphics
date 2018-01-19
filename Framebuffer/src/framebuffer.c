@@ -24,7 +24,7 @@ int main()
         perror("Error: cannot open framebuffer device");
         exit(1);
     }
-    printf("The framebuffer device was opened successfully.\n");
+    //printf("The framebuffer device was opened successfully.\n");
 
     // Get fixed screen information
     if (ioctl(fbfd, FBIOGET_FSCREENINFO, &finfo) == -1) {
@@ -38,7 +38,7 @@ int main()
         exit(3);
     }
 
-    printf("%dx%d, %dbpp\n", vinfo.xres, vinfo.yres, vinfo.bits_per_pixel);
+    //printf("%dx%d, %dbpp\n", vinfo.xres, vinfo.yres, vinfo.bits_per_pixel);
 
     // Figure out the size of the screen in bytes
     screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
@@ -49,12 +49,23 @@ int main()
         perror("Error: failed to map framebuffer device to memory");
         exit(4);
     }
-    printf("The framebuffer device was mapped to memory successfully.\n");
+    //printf("The framebuffer device was mapped to memory successfully.\n");
 
-    x = 100; y = 100;       // Where we are going to put the pixel
 
+    /* --------------- READ INPUT --------------- */
+
+    printf("----- CUSTOM FONT RENDERER -----\n\n");
+    printf("Want to see our font? Check it out now!\nType anything below without whitespace, and max length is 50.\n\n");
+    printf("Input : ");
+
+    char in[50];
+    scanf("%s",in);
+
+    printf("%s\n",in);
 
     /* --------------- RENDERING --------------- */
+
+    x = 100; y = 100; // Where we are going to put the pixel
 
     // Figure out where in memory to put the pixel
     for(y = 4; y < 14; y++)
