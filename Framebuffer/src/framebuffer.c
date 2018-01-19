@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -16,6 +17,7 @@
 #define FILE_NAME "font.txt" // font pixels configuration file name
 #define FILE_PATH "../font/" // folder where font pixels configuration file is saved
 
+#define PIXEL '+' // character representation of a pixel
 
 int main()
 {
@@ -76,25 +78,44 @@ int main()
 
     if(file)
     {
-        printf("Success!\n");
-
-        /*
-        bool pix[26][10][7]; // store font pixels, pix[1][2][3] = 1st letter (A), 2nd row, 3rd column, true/false = pixel on/off
+        bool pix[LETTER_NUMBER][ROW_NUMBER][COL_NUMBER]; // store font pixels, pix[0][1][2] = 1st letter (A), 2nd row, 3rd column, true/false = pixel on/off
+        
         int letter, row, col; // iterators
+        char c;
 
-        for(letter = 1; letter <= LETTER_NUMBER; letter++) // for every letter
+        for(letter = 0; letter < LETTER_NUMBER; letter++) // for every letter
         {
-            for(row = 1; row <= ROW_NUMBER; row++) // for every row
+            for(row = 0; row < ROW_NUMBER; row++) // for every row
             {
-                for(col = 1; col <= COL_NUMBER; col++) // for every col
+                for(col = 0; col < COL_NUMBER; col++) // for every col
                 {
-                    
+                    c = fgetc(file); // read pixel configuration
+
+                    if(c == PIXEL) pix[letter][row][col] = true;
+                    else pix[letter][row][col] = false;
                 }
+
+                c = fgetc(file); // read newline and discard it
             }
         }
-        */
 
         fclose(file);
+
+        for(letter = 0; letter < LETTER_NUMBER; letter++) // for every letter
+        {
+            for(row = 0; row < ROW_NUMBER; row++) // for every row
+            {
+                for(col = 0; col < COL_NUMBER; col++) // for every col
+                {
+                    if(pix[letter][row][col]) printf("+");
+                    else printf(" ");
+                }
+
+                printf("\n");
+            }
+        }
+
+        exit(0);
     }
     else
     {
@@ -106,7 +127,7 @@ int main()
     /* --------------- READ INPUT --------------- */
 
     printf("----- CUSTOM FONT RENDERER -----\n\n");
-    printf("Want to see our font? Check it out now!\nType anything below without whitespace, and max length is 50.\n\n");
+    printf("Want to see our font? Check it out now!\nType anything below without whitespace, A-Z only, and max length is 50.\n\n");
     printf("Input : ");
 
     char in[50]; // user's input
