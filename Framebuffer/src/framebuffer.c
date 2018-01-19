@@ -1,10 +1,21 @@
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
+
+/* ---- CONSTANTS ----- */
+
+#define LETTER_NUMBER 1  // first LETTER_NUMBER letters which pixels are defined in ../font/font.txt
+#define ROW_NUMBER 10  // row size of every letter
+#define COL_NUMBER 7  // col size of every letter
+
+#define FILE_NAME "font.txt" // font pixels configuration file name
+#define FILE_PATH "../font/" // folder where font pixels configuration file is saved
+
 
 int main()
 {
@@ -52,16 +63,57 @@ int main()
     //printf("The framebuffer device was mapped to memory successfully.\n");
 
 
+    /* --------------- OPEN FILE AND READ FONT PIXELS CONFIGURATION --------------- */
+
+    FILE* file;
+    char path[100]; // file path
+
+    strcpy(path, FILE_PATH);
+    strcat(path, FILE_NAME);
+
+    printf("%s\n",path);
+    file = fopen(path, "r");
+
+    if(file)
+    {
+        printf("Success!\n");
+
+        /*
+        bool pix[26][10][7]; // store font pixels, pix[1][2][3] = 1st letter (A), 2nd row, 3rd column, true/false = pixel on/off
+        int letter, row, col; // iterators
+
+        for(letter = 1; letter <= LETTER_NUMBER; letter++) // for every letter
+        {
+            for(row = 1; row <= ROW_NUMBER; row++) // for every row
+            {
+                for(col = 1; col <= COL_NUMBER; col++) // for every col
+                {
+                    
+                }
+            }
+        }
+        */
+
+        fclose(file);
+    }
+    else
+    {
+        perror("Error: failed to open file");
+        exit(5);
+    }
+
+
     /* --------------- READ INPUT --------------- */
 
     printf("----- CUSTOM FONT RENDERER -----\n\n");
     printf("Want to see our font? Check it out now!\nType anything below without whitespace, and max length is 50.\n\n");
     printf("Input : ");
 
-    char in[50];
+    char in[50]; // user's input
     scanf("%s",in);
 
     printf("%s\n",in);
+
 
     /* --------------- RENDERING --------------- */
 
