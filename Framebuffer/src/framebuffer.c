@@ -53,6 +53,7 @@ int main()
 
     x = 100; y = 100;       // Where we are going to put the pixel
 
+
     /* --------------- RENDERING --------------- */
 
     // Figure out where in memory to put the pixel
@@ -63,10 +64,10 @@ int main()
             location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
                        (y+vinfo.yoffset) * finfo.line_length;
 
-            *(fbp + location) = 255;        // Some blue
-            *(fbp + location + 1) = 255;     // A little green
-            *(fbp + location + 2) = 255;    // A lot of red
-            *(fbp + location + 3) = 0;      // No transparency
+            *(fbp + location) = 255; // Blue value
+            *(fbp + location + 1) = 255; // Green value
+            *(fbp + location + 2) = 255; // Red value
+            *(fbp + location + 3) = 0;  // Transparency value (α)
         }
     }
 
