@@ -10,7 +10,7 @@
 
 /* ---- CONSTANTS ----- */
 
-#define LETTER_NUMBER 2  // first LETTER_NUMBER letters which pixels are defined in ../font/font.txt
+#define LETTER_NUMBER 26  // first LETTER_NUMBER letters which pixels are defined in ../font/font.txt
 #define ROW_NUMBER 10  // row size of every letter
 #define COL_NUMBER 7  // col size of every letter
 
@@ -73,7 +73,6 @@ int main()
     strcpy(path, FILE_PATH);
     strcat(path, FILE_NAME);
 
-    printf("%s\n",path);
     file = fopen(path, "r");
 
     if(file)
@@ -100,22 +99,6 @@ int main()
         }
 
         fclose(file);
-
-        for(letter = 0; letter < LETTER_NUMBER; letter++) // for every letter
-        {
-            for(row = 0; row < ROW_NUMBER; row++) // for every row
-            {
-                for(col = 0; col < COL_NUMBER; col++) // for every col
-                {
-                    if(pix[letter][row][col]) printf("+");
-                    else printf(" ");
-                }
-
-                printf("\n");
-            }
-        }
-
-        exit(0);
     }
     else
     {
