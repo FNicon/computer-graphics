@@ -110,11 +110,11 @@ int main()
     /* --------------- READ AND VALIDATE INPUT --------------- */
 
     printf("\n----- CUSTOM FONT RENDERER -----\n\n");
-    printf("Want to see our font? Check it out now!\nType anything below without whitespace, A-Z only, and max length is 100.\n\n");
+    printf("Want to see our font? Check it out now!\nType anything below, A-Z and space only. Max length is 100.\n\n");
     printf("Input : ");
 
-    char in[100]; // user's input
-    scanf("%s",in);
+    char in[101]; // user's input
+    fgets(in, 101, stdin);
 
     int len = strlen(in); // get input length
     int pos; // iterator
@@ -126,9 +126,9 @@ int main()
     }
     else
     {
-        for(pos = 0; pos < len; pos++)
+        for(pos = 0; pos < len-1; pos++) // remove newline
         {
-            if(in[pos] >= 'A' && in[pos] <= 'Z') continue;
+            if(in[pos] >= 'A' && in[pos] <= 'Z' || in[pos] == ' ') continue;
             else if(in[pos] >= 'a' && in[pos] <= 'z') in[pos] = toupper(in[pos]);
             else
             {
@@ -156,21 +156,31 @@ int main()
                 location = (col + vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
                         (row + vinfo.yoffset) * finfo.line_length;
 
-                int seqnum = (int)(in[letter] - 'A');
-                
-                if(pix[seqnum][row_offset][col_offset]) // If pixel is on, render pixel with white color
-                {
-                    *(fbp + location) = 255; // Blue value
-                    *(fbp + location + 1) = 255; // Green value
-                    *(fbp + location + 2) = 255; // Red value
-                    *(fbp + location + 3) = 0;  // Transparency value (α)
-                }
-                else // If pixel is on, render pixel with black color
+                if(in[letter] == ' ') // If character is space, always render with black color
                 {
                     *(fbp + location) = 0; // Blue value
                     *(fbp + location + 1) = 0; // Green value
                     *(fbp + location + 2) = 0; // Red value
                     *(fbp + location + 3) = 0;  // Transparency value (α)
+                }
+                else
+                {
+                    int seqnum = (int)(in[letter] - 'A');
+                
+                    if(pix[seqnum][row_offset][col_offset]) // If pixel is on, render pixel with white color
+                    {
+                        *(fbp + location) = 255; // Blue value
+                        *(fbp + location + 1) = 255; // Green value
+                        *(fbp + location + 2) = 255; // Red value
+                        *(fbp + location + 3) = 0;  // Transparency value (α)
+                    }
+                    else // If pixel is on, render pixel with black color
+                    {
+                        *(fbp + location) = 0; // Blue value
+                        *(fbp + location + 1) = 0; // Green value
+                        *(fbp + location + 2) = 0; // Red value
+                        *(fbp + location + 3) = 0;  // Transparency value (α)
+                    }
                 }
             }
         }
