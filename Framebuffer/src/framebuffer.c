@@ -107,19 +107,19 @@ int main()
     }
 
 
-    /* --------------- READ INPUT AND VALIDATE --------------- */
+    /* --------------- READ AND VALIDATE INPUT --------------- */
 
     printf("\n----- CUSTOM FONT RENDERER -----\n\n");
-    printf("Want to see our font? Check it out now!\nType anything below without whitespace, A-Z only, and max length is 50.\n\n");
+    printf("Want to see our font? Check it out now!\nType anything below without whitespace, A-Z only, and max length is 100.\n\n");
     printf("Input : ");
 
-    char in[50]; // user's input
+    char in[100]; // user's input
     scanf("%s",in);
 
     int len = strlen(in); // get input length
     int pos; // iterator
     
-    if(len > 50) 
+    if(len > 100) 
     {
         printf("\nError! Input too long\n");
         exit(6);
@@ -138,25 +138,41 @@ int main()
         }
     }
 
+
     /* --------------- FONT RENDERING --------------- */
 
-    int letter, row, col; // iterators
-
-    int max_row = ROW_NUMBER - 1; // maximum value of row = ROW_NUMBER - 1, because one line only and number starts from 0
-    int max_col = len * COL_NUMBER + (len-1) * COL_SPACING - 1; // maximum value of col, depends on input length, number starts from 0
+    int letter, row_offset, col_offset; // iterators
 
     // Figure out where in memory to put the pixel
-    for(row = 0; row < max_row; row++)
+    for(letter = 0; letter < len; letter++)
     {
-        for(col = 0; col < 1; col++)
+        for(col_offset = 0; col_offset < COL_NUMBER; col_offset++) // column offset
         {
-            location = (col + vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
-                       (row + vinfo.yoffset) * finfo.line_length;
+            for(row_offset = 0; row_offset < ROW_NUMBER; row_offset++) // row offset
+            {
+                int row = row_offset; // one row only
+                int col = letter * (COL_NUMBER + COL_SPACING) + col_offset ; // column position depends on the letter position in input
 
-            *(fbp + location) = 255; // Blue value
-            *(fbp + location + 1) = 255; // Green value
-            *(fbp + location + 2) = 255; // Red value
-            *(fbp + location + 3) = 0;  // Transparency value (α)
+                location = (col + vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
+                        (row + vinfo.yoffset) * finfo.line_length;
+
+                int seqnum = (int)(in[letter] - 'A');
+                
+                if(pix[seqnum][row_offset][col_offset]) // If pixel is on, render pixel with white color
+                {
+                    *(fbp + location) = 255; // Blue value
+                    *(fbp + location + 1) = 255; // Green value
+                    *(fbp + location + 2) = 255; // Red value
+                    *(fbp + location + 3) = 0;  // Transparency value (α)
+                }
+                else // If pixel is on, render pixel with black color
+                {
+                    *(fbp + location) = 0; // Blue value
+                    *(fbp + location + 1) = 0; // Green value
+                    *(fbp + location + 2) = 0; // Red value
+                    *(fbp + location + 3) = 0;  // Transparency value (α)
+                }
+            }
         }
     }
 
