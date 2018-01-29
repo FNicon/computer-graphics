@@ -34,6 +34,9 @@ int main()
 
     // Open the file for reading and writing
     fbfd = open("/dev/fb0", O_RDWR);
+
+    printf("%d",fbfd);
+
     if (fbfd == -1) {
         perror("Error! Cannot open framebuffer device");
         exit(1);
