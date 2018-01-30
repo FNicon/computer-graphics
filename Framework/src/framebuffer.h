@@ -9,17 +9,20 @@ class Framebuffer
 
         int fd; // Framebuffer file descriptor
         int size; // Total size of framebuffer in bytes
+
         struct fb_fix_screeninfo fixed_info; // Fixed screen information
         struct fb_var_screeninfo var_info; // Variable screen information
+        
         char* main_buffer; // Buffer to be mapped to framebuffer device (/dev/fb0)
         char* back_buffer; // Secondary buffer, for double buffering
 
+        const bool BUF_MAIN = true; // Main buffer flag for target_buffer
+        const bool BUF_BACK = false; // Secondary buffer flag for target_buffer
 
         // Methods
 
-        void init(); // Initialize framebuffer
-        void cleanup(); // Cleanup framebuffer
+        Framebuffer(); // Framebuffer constructor
+        ~Framebuffer(); // Framebuffer destructor
 
-        void set(int row, int col, int red, int green, int blue, int alpha); // Set pixels (static, no animation)
-        void write(int row, int col, int red, int green, int blue, int alpha); // Write pixels (dynamic, for animation)
+        void write(int row, int column, int color, bool main); // Write pixels to main buffer or back buffer with RGB color
 };

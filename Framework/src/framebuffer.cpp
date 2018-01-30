@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void Framebuffer::init()
+Framebuffer::Framebuffer()
 {
     fd = open("/dev/fb0", O_RDWR); // Open framebuffer device
     
@@ -45,27 +45,49 @@ void Framebuffer::init()
         exit(4);
     }
 
-    // Todo : malloc for double buffering!
+    // Memory allocation for back buffer
+    back_buffer = (char*) malloc(size);
+
+    if(back_buffer == NULL)
+    {
+        cerr << "Failed to allocate memory for back buffer! " << strerror(errno) << "." << endl;
+        exit(5);
+    }
+
+    // Give all buffers initial value of 0
+    memset(main_buffer, 0, size);
+    memset(back_buffer, 0, size);
 }
 
-void Framebuffer::cleanup()
+Framebuffer::~Framebuffer()
 {
-    munmap((void*) &fd, size); // Unmap memory
+    munmap(main_buffer, size); // Unmap main buffer
+    free(back_buffer); // Free back buffer memory
     close(fd); // Close framebuffer device
 }
 
-void Framebuffer::set(int row, int col, int red, int green, int blue, int alpha)
+void Framebuffer::write(int row, int column, int color, bool main)
 {
     // Count starting byte
-    int start_byte = (col + var_info.xoffset) * (var_info.bits_per_pixel / 8) + (row + var_info.yoffset) * fixed_info.line_length;
+    int start_byte = (column + var_info.xoffset) * (var_info.bits_per_pixel / 8) + (row + var_info.yoffset) * fixed_info.line_length;
 
-    *(main_buffer + start_byte) = blue;
-    *(main_buffer + start_byte + 1) = green;
-    *(main_buffer + start_byte + 2) = red;
-    *(main_buffer + start_byte + 3) = alpha;
-}
+    // Determine RGB from color
+    int red = (color & 0xFF0000) >> 16;
+    int green = (color & 0xFF00) >> 8;
+    int blue = color & 0xFF;
 
-void Framebuffer::write(int row, int col, int red, int green, int blue, int alpha)
-{
-    // Todo : double buffering!
+    if(main) // Write to main buffer
+    {
+        *(main_buffer + start_byte) = blue;
+        *(main_buffer + start_byte + 1) = green;
+        *(main_buffer + start_byte + 2) = red;
+        *(main_buffer + start_byte + 3) = 0;
+    }
+    else // Write to back buffer
+    {
+        *(back_buffer + start_byte) = blue;
+        *(back_buffer + start_byte + 1) = green;
+        *(back_buffer + start_byte + 2) = red;
+        *(back_buffer + start_byte + 3) = 0;
+    }
 }

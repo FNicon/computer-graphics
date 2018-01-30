@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 
 #include "framebuffer.h"
 
@@ -6,43 +7,52 @@ using namespace std;
 
 int main()
 {
-    Framebuffer frame_buf;
-    
-    frame_buf.init();
+    Framebuffer buf;
 
-    for(int i=0;i<10;i++)
+    // Test red
+    for(int r=0; r<10; r++)
     {
-        for(int j=0;j<10;j++)
+        for(int c=0; c<10; c++)
         {
-            frame_buf.set(i,j,0xFF,0,0,0);
+            buf.write(r, c, 0xff0000, buf.BUF_MAIN);
         }
     }
 
-    for(int i=10;i<20;i++)
+    // Test green
+    for(int r=10; r<20; r++)
     {
-        for(int j=10;j<20;j++)
+        for(int c=10; c<20; c++)
         {
-            frame_buf.set(i,j,0,0xFF,0,0);
+            buf.write(r, c, 0x00ff00, buf.BUF_MAIN);
         }
     }
 
-    for(int i=20;i<30;i++)
+    // Test blue
+    for(int r=20; r<30; r++)
     {
-        for(int j=20;j<30;j++)
+        for(int c=20; c<30; c++)
         {
-            frame_buf.set(i,j,0,0,0xFF,0);
+            buf.write(r, c, 0x0000ff, buf.BUF_MAIN);
         }
     }
 
-    for(int i=30;i<40;i++)
+    // Test white
+    for(int r=30; r<40; r++)
     {
-        for(int j=30;j<40;j++)
+        for(int c=30; c<40;c++)
         {
-            frame_buf.set(i,j,0xFF,0xFF,0xFF,90);
+            buf.write(r, c, 0xffffff, buf.BUF_MAIN);
         }
     }
-    
-    frame_buf.cleanup();
+
+    // Test gray
+    for(int r=40; r<50; r++)
+    {
+        for(int c=40; c<50; c++)
+        {
+            buf.write(r, c, 0x3c3c3c, buf.BUF_MAIN);
+        }
+    }
 
     return 0;
 }
