@@ -91,3 +91,9 @@ void Framebuffer::write(int row, int column, int color, bool main)
         *(back_buffer + start_byte + 3) = 0;
     }
 }
+
+void Framebuffer::flush()
+{
+    memcpy(main_buffer, back_buffer, size); // Copy from back buffer to main buffer and update screen
+    memset(back_buffer, 0, size); // Reset back buffer
+}
