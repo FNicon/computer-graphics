@@ -24,5 +24,6 @@ class Framebuffer
         Framebuffer(); // Framebuffer constructor
         ~Framebuffer(); // Framebuffer destructor
 
-        void write(int row, int column, int color, bool main); // Write pixels to main buffer or back buffer with RGB color
+        // Write pixels to main buffer or back buffer with RGB color, use hex for color
+        void write(int row, int column, int color, bool main);
 };
