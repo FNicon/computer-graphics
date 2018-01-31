@@ -22,7 +22,7 @@ int main()
     while(cnt--)
     {
         line.draw(buf, 0x5342f4, buf.BUF_BACK);
-
+        
         line.x1++; line.y1++;
         line.x2++; line.y2++;
 
