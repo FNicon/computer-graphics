@@ -22,7 +22,7 @@ int main()
 
 	while(cnt--)
 	{
-		line.Draw(buf, 0x5342f4, buf.BUF_BACK);
+		line.Draw(buf, 0x5342f4, 5, buf.BUF_BACK);
 		
 		if (phase == 0)
 		{
