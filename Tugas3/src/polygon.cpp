@@ -40,7 +40,9 @@ istream& operator>> (istream& _is, Polygon& _obj) {
 
     // Read additional points.
 
-    while (!(_is >> blank >> expect('\n'))) {
+    while (!(_is >> blank >> expect_if([](char _ch) {
+            return _ch == '\r' || _ch == '\n';
+        }))) {
 
         if (!(_is >> reset >> p)) {
             cerr << "Polygon: Point is expected" << endl;
