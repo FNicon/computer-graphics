@@ -16,6 +16,16 @@ using namespace std;
 class Font {
 public:
     /**
+     * Get specified glyph from character.
+     *
+     * @param _ch character of glyph.
+     * @return  specified glyph for drawing.
+     */
+    inline Glyph& operator[] (char _ch) {
+        return glyphs[_ch];
+    }
+
+    /**
      * Set object from input stream.
      *
      * @param _is  input stream to be read.
