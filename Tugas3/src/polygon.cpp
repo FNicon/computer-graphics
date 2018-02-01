@@ -3,9 +3,28 @@
  */
 
 #include "parsetool.h"
+#include "lib/line.h"
 
 #include "polygon.h"
 
+
+void Polygon::Draw (Framebuffer& _buf, int _x, int _y) const {
+    auto it = points.begin();
+
+    if (it != points.end()) {
+        auto prev = *it;
+
+        for (++it; it != points.end(); ++it) {
+            const auto& self = *it;
+
+            Line line(_x + prev.x, _y + prev.y, _x + self.x, _y + self.y);
+            line.Draw(_buf, 0xffffff, 1, _buf.BUF_MAIN);
+
+            // Put previous.
+            prev = self;
+        }
+    }
+}
 
 istream& operator>> (istream& _is, Polygon& _obj) {
     Point p;
