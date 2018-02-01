@@ -5,6 +5,8 @@
 #pragma once
 
 #include <bits/stdc++.h>
+
+#include "lib/framebuffer.h"
 #include "polygon.h"
 
 using namespace std;
@@ -14,6 +16,15 @@ using namespace std;
 
 class Glyph {
 public:
+    /**
+     * Draw glyph to screen.
+     *
+     * @param _buf  framebuffer.
+     * @param _x  x-axis.
+     * @param _y  y-axis.
+     */
+    void Draw (Framebuffer& _buf, int _x, int _y) const;
+
     /**
      * Set object from input stream.
      *

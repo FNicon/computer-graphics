@@ -7,6 +7,12 @@
 #include "glyph.h"
 
 
+void Glyph::Draw (Framebuffer& _buf, int _x, int _y) const {
+    for (const Polygon& polygon : polygons) {
+        polygon.Draw(_buf, _x, _y);
+    }
+}
+
 istream& operator>> (istream& _is, Glyph& _obj) {
     // Read '{' character.
     if (!(_is >> expect('{'))) {
