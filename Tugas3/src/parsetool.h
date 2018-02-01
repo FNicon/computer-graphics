@@ -38,23 +38,25 @@ std::basic_istream<CharType, Traits>& blank (
 }
 
 
-// expect.
+// expect_if.
 
-template<typename CharType>
-struct _Expect { CharType ch; };
+template<typename FilterFuncType>
+struct _Expect_if {
+    FilterFuncType func;
+};
 
 /**
  * Expect a character in a stream.
- * @param _ch  Character to be expected.
+ * @param _func  function to test the character.
  */
-template<typename CharType>
-inline _Expect<CharType> expect(CharType _ch) {
-    return { _ch };
+template<typename FilterFuncType>
+inline _Expect_if<FilterFuncType> expect_if(FilterFuncType _func) {
+    return { _func };
 }
 
-template<typename CharType, typename Traits>
+template<typename CharType, typename Traits, typename FilterFuncType>
 std::basic_istream<CharType, Traits>& operator>> (
-    std::basic_istream<CharType, Traits>& _is, _Expect<CharType> _t) {
+    std::basic_istream<CharType, Traits>& _is, _Expect_if<FilterFuncType> _t) {
 
     using StreamType = std::basic_istream<CharType, Traits>;
     using StreamBufType = std::basic_streambuf<CharType, Traits>;
@@ -69,7 +71,7 @@ std::basic_istream<CharType, Traits>& operator>> (
         _is.setstate(std::ios_base::eofbit);
     } else {
         // Not EOF.
-        if (Traits::to_char_type(c) == _t.ch) {
+        if (_t.func(Traits::to_char_type(c))) {
             sb->snextc();
         } else {
             _is.setstate(std::ios_base::failbit);
@@ -77,6 +79,32 @@ std::basic_istream<CharType, Traits>& operator>> (
     }
 
     return _is;
+}
+
+
+// expect.
+
+template<typename CharType>
+struct _Expect {
+    CharType ch;
+};
+
+/**
+ * Expect a character in a stream.
+ * @param _ch  Character to be expected.
+ */
+template<typename CharType>
+inline _Expect<CharType> expect(CharType _ch) {
+    return { _ch };
+}
+
+template<typename CharType, typename Traits>
+std::basic_istream<CharType, Traits>& operator>> (
+    std::basic_istream<CharType, Traits>& _is, _Expect<CharType> _t) {
+
+    return _is >> expect_if([_t](char ch) {
+        return ch == _t.ch;
+    });
 }
 
 
