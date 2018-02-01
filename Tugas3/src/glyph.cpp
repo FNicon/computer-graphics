@@ -22,7 +22,7 @@ istream& operator>> (istream& _is, Glyph& _obj) {
             return _is;
         }
 
-        if (key == "poly") {
+        if (key == "p") {
             Polygon polygon;
 
             if (!(_is >> blank >> polygon)) {

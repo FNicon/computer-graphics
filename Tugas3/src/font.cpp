@@ -11,7 +11,7 @@ istream& operator>> (istream& _is, Font& _obj) {
     std::string key;
 
     while (_is >> key) {
-        if (key == "char") {
+        if (key == "g") {
             char ch;
 
             // Read '#' character.
