@@ -33,7 +33,7 @@ istream& operator>> (istream& _is, Polygon& _obj) {
 
     if (!(_is >> p)) {
         cerr << "Polygon: 1st Point is expected" << endl;
-        goto quit;
+        return _is;
     }
 
     _obj.points.push_back(p);
@@ -44,13 +44,12 @@ istream& operator>> (istream& _is, Polygon& _obj) {
 
         if (!(_is >> reset >> p)) {
             cerr << "Polygon: Point is expected" << endl;
-            goto quit;
+            return _is;
         }
 
         _obj.points.push_back(p);
     }
 
-quit:
     return _is;
 }
 

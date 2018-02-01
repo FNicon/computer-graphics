@@ -11,34 +11,33 @@ istream& operator>> (istream& _is, Point& _obj) {
     // Read '(' character.
     if (!(_is >> expect('('))) {
         cerr << "Point: '(' is expected" << endl;
-        goto quit;
+        return _is;
     }
 
     // Read X-axis.
     if (!(_is >> ws >> _obj.x)) {
         cerr << "Point: X-axis is expected" << endl;
-        goto quit;
+        return _is;
     }
 
     // Read ',' separator.
     if (!(_is >> ws >> expect(','))) {
         cerr << "Point: ',' is expected" << endl;
-        goto quit;
+        return _is;
     }
 
     // Read Y-axis.
     if (!(_is >> ws >> _obj.y)) {
         cerr << "Point: Y-axis is expected" << endl;
-        goto quit;
+        return _is;
     }
 
     // Read ')' character.
     if (!(_is >> ws >> expect(')'))) {
         cerr << "Point: ')' is expected" << endl;
-        goto quit;
+        return _is;
     }
 
-quit:
     return _is;
 }
 
