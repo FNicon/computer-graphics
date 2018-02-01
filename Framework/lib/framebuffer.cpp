@@ -66,7 +66,7 @@ Framebuffer::~Framebuffer()
     close(fd); // Close framebuffer device
 }
 
-void Framebuffer::write(int row, int column, int color, bool main)
+void Framebuffer::Write(int row, int column, int color, bool main)
 {
     // Count starting byte
     int start_byte = (column + var_info.xoffset) * (var_info.bits_per_pixel / 8) + (row + var_info.yoffset) * fixed_info.line_length;
@@ -92,7 +92,7 @@ void Framebuffer::write(int row, int column, int color, bool main)
     }
 }
 
-void Framebuffer::flush()
+void Framebuffer::Flush()
 {
     memcpy(main_buffer, back_buffer, size); // Copy from back buffer to main buffer and update screen
     memset(back_buffer, 0, size); // Reset back buffer

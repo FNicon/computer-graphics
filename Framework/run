@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $1 == "--debug" ]]
+then
+    sudo gdb bin/main
+else
+    sudo bin/main
+fi

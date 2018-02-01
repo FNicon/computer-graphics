@@ -4,6 +4,12 @@
 
 class Line
 {
+    private:
+        // Methods
+
+        void DrawX (Framebuffer& buf, int color, bool main); // Draw by coloring pixels for every X
+        void DrawY (Framebuffer& buf, int color, bool main); // Draw by coloring pixels for every Y
+
     public:
         // Properties
 
@@ -15,5 +21,5 @@ class Line
         Line(int _x1, int _y1, int _x2, int _y2); // Line constructor
 
         // Draw line to main buffer or back buffer with RGB color, use hex for color
-        void draw(Framebuffer& buf, int color, bool main);
+        void Draw(Framebuffer& buf, int color, bool main);
 };

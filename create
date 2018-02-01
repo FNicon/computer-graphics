@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mkdir -p $1/src
+cp Framework/.gitignore $1
+cp Framework/makegen $1
+cp Framework/run $1
+cp Framework/sample/main.cpp $1/src/
+cd $1/src
+ln -s ../../Framework/lib .
+cd ../..

@@ -4,7 +4,7 @@
 
 class Framebuffer
 {
-    public:
+    private:
         // Properties
 
         int fd; // Framebuffer file descriptor
@@ -12,9 +12,12 @@ class Framebuffer
 
         struct fb_fix_screeninfo fixed_info; // Fixed screen information
         struct fb_var_screeninfo var_info; // Variable screen information
-        
+
         char* main_buffer; // Buffer to be mapped to framebuffer device (/dev/fb0)
         char* back_buffer; // Secondary buffer, for double buffering
+
+    public:
+        // Properties
 
         const bool BUF_MAIN = true; // Main buffer flag for target_buffer
         const bool BUF_BACK = false; // Secondary buffer flag for target_buffer
@@ -25,7 +28,7 @@ class Framebuffer
         ~Framebuffer(); // Framebuffer destructor
 
         // Write pixels to main buffer or back buffer with RGB color, use hex for color
-        void write(int row, int column, int color, bool main);
+        void Write(int row, int column, int color, bool main);
 
-        void flush(); // Flush secondary buffer to main buffer
+        void Flush(); // Flush secondary buffer to main buffer
 };

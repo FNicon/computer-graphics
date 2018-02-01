@@ -4,7 +4,7 @@ if [[ -d src ]] # if src exists and is a directory
 then
 	printf "Collecting information from source files ...\n"
 
-	src_folders=$(find src -type d | grep -o -P '(?<=src/).+') # find all subdirectories of src
+	src_folders=$(find -L src -type d | grep -o -P '(?<=src/).+') # find all subdirectories of src
 	obj_folder="bin/obj" # object code directory
 
 	test_obj_folder=$(ls bin/obj 2> /dev/null) # redirect any error to /dev/null
@@ -23,8 +23,8 @@ then
 	touch Makefile # assure Makefile exists
 	rm Makefile # remove Makefile
 
-	all_header=$(find src -type f -name '*.h') # find all header files
-	all_src=$(find src -type f -name '*.cpp') # find all implementation files
+	all_header=$(find -L src -type f -name '*.h') # find all header files
+	all_src=$(find -L src -type f -name '*.cpp') # find all implementation files
 
 	object_files="" # list of all object files
 	cnt=0 # counter
@@ -35,7 +35,7 @@ then
 		extension=$(printf "$files" | grep -o -P '\..+$') # get file extension
 		filename=$(basename $files $extension) # get filename
 		filepath=$(printf "$files" | grep -o -P ".+(?=$filename$extension)") # get file path
-		
+
 		if [[ $extension != ".h" ]] # for every .cpp files
 		then
 			filepath_in_src=$(printf "$filepath" | grep -o -P '(?<=src/).+') # get file path relative to src
@@ -76,9 +76,9 @@ then
 
 	# Write linking executable rule
 
-	printf "main: $object_files\n" >> Makefile
+	printf "bin/main: $object_files\n" >> Makefile
 	printf "	@echo \"Linking ...\"\n" >> Makefile
-	printf "	@g++ $object_files -o main\n\n" >> Makefile
+	printf "	@g++ $object_files -o bin/main -g\n\n" >> Makefile
 
 	# Write compiling source file rule
 
@@ -89,7 +89,7 @@ then
 
 		printf "${rules[i]}\n" >> Makefile
 		printf "	@echo \"Compiling $src_name.cpp ...\"\n" >> Makefile
-		printf "	@g++ -c ${files[i]} -o $current_obj_path $@\n\n" >> Makefile
+		printf "	@g++ -c ${files[i]} -o $current_obj_path $@ -g\n\n" >> Makefile
 	done
 
 	# Write clean rule
@@ -108,7 +108,7 @@ then
 	done
 	
 	printf "\n	@echo \"Removing executable ...\"\n" >> Makefile
-	printf "	@rm -rf main" >> Makefile
+	printf "	@rm -rf bin/main" >> Makefile
 else
 	printf "Cannot find \"src\" folder. Please put your source files (except drivers) in \"src\" folder.\n"
 fi
