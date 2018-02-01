@@ -25,104 +25,98 @@ void Line::Draw(Framebuffer& buf, int color, int thickness, bool main)
 
 void Line::DrawX(Framebuffer& buf, int color, int thickness, bool main)
 {
-	for(int t=0; t<thickness;t++)
+	int dx = abs(x1 - x2);
+	int dy = abs(y1 - y2);
+
+	int p = 2 * dy - dx;
+
+	int const1 = 2 * dy;
+	int const2 = 2 * (dy - dx);
+
+	int x, x_end, y, y_end;
+	int sign;
+
+	if(x1 > x2)
 	{
-		int dx = abs(x1 - x2);
-		int dy = abs(y1 - y2);
+		x = x2;
+		y = y2;
+		x_end = x1;
+		y_end = y1;
+	}
+	else
+	{
+		x = x1;
+		y = y1;
+		x_end = x2;
+		y_end = y2;
+	}
 
-		int p = 2 * dy - dx;
+	if (y_end < y) sign = -1;
+	else if (y_end > y) sign = 1;
+	else sign = 0;
 
-		int const1 = 2 * dy;
-		int const2 = 2 * (dy - dx);
+	for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
 
-		int x, x_end, y, y_end;
-		int sign;
+	while(x < x_end)
+	{
+		x++;
 
-		if(x1 > x2)
-		{
-			x = x2;
-			y = y2 + t;
-			x_end = x1;
-			y_end = y1 + t;
-		}
+		if(p < 0) p += const1;
 		else
 		{
-			x = x1;
-			y = y1 + t;
-			x_end = x2;
-			y_end = y2 + t;
+			y = y + sign;
+			p += const2;
 		}
 
-		if (y_end < y) sign = -1;
-		else if (y_end > y) sign = 1;
-		else sign = 0;
-
-		buf.Write(y, x, color, main);
-
-		while(x < x_end)
-		{
-			x++;
-
-			if(p < 0) p += const1;
-			else
-			{
-				y = y + sign;
-				p += const2;
-			}
-
-			buf.Write(y, x, color, main);
-		}
+		for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
 	}
 }
 
 void Line::DrawY(Framebuffer& buf, int color, int thickness, bool main)
 {
-	for(int t=0; t<thickness;t++)
+	int dx = abs(x1 - x2);
+	int dy = abs(y1 - y2);
+
+	int p = 2 * dx - dy;
+
+	int const1 = 2 * dx;
+	int const2 = 2 * (dx - dy);
+
+	int x, x_end, y, y_end;
+	int sign;
+
+	if (y1 > y2)
 	{
-		int dx = abs(x1 - x2);
-		int dy = abs(y1 - y2);
+		x = x2;
+		y = y2;
+		x_end = x1;
+		y_end = y1;
+	}
+	else
+	{
+		x = x1;
+		y = y1;
+		x_end = x2;
+		y_end = y2;
+	}
 
-		int p = 2 * dx - dy;
+	if (x_end < x) sign = -1;
+	else if (x_end > x) sign = 1;
+	else sign = 0;
 
-		int const1 = 2 * dx;
-		int const2 = 2 * (dx - dy);
+	for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
 
-		int x, x_end, y, y_end;
-		int sign;
+	while(y < y_end)
+	{
+		y++;
 
-		if (y1 > y2)
-		{
-			x = x2 + t;
-			y = y2;
-			x_end = x1 + t;
-			y_end = y1;
-		}
+		if(p < 0) p += const1;
 		else
 		{
-			x = x1 + t;
-			y = y1;
-			x_end = x2 + t;
-			y_end = y2;
+			x = x + sign;
+			p += const2;
 		}
-
-		if (x_end < x) sign = -1;
-		else if (x_end > x) sign = 1;
-		else sign = 0;
-
-		buf.Write(y, x, color, main);
-
-		while(y < y_end)
-		{
-			y++;
-
-			if(p < 0) p += const1;
-			else
-			{
-				x = x + sign;
-				p += const2;
-			}
-			
-			buf.Write(y, x, color, main);
-		}
+		
+		for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
 	}
 }
