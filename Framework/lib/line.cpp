@@ -40,16 +40,16 @@ void Line::DrawX(Framebuffer& buf, int color, int thickness, bool main)
 
 		if(x1 > x2)
 		{
-			x = x2 + t;
+			x = x2;
 			y = y2 + t;
-			x_end = x1 + t;
+			x_end = x1;
 			y_end = y1 + t;
 		}
 		else
 		{
-			x = x1 + t;
+			x = x1;
 			y = y1 + t;
-			x_end = x2 + t;
+			x_end = x2;
 			y_end = y2 + t;
 		}
 
@@ -93,16 +93,16 @@ void Line::DrawY(Framebuffer& buf, int color, int thickness, bool main)
 		if (y1 > y2)
 		{
 			x = x2 + t;
-			y = y2 + t;
+			y = y2;
 			x_end = x1 + t;
-			y_end = y1 + t;
+			y_end = y1;
 		}
 		else
 		{
 			x = x1 + t;
-			y = y1 + t;
+			y = y1;
 			x_end = x2 + t;
-			y_end = y2 + t;
+			y_end = y2;
 		}
 
 		if (x_end < x) sign = -1;
