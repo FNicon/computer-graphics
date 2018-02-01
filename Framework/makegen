@@ -78,7 +78,7 @@ then
 
 	printf "bin/main: $object_files\n" >> Makefile
 	printf "	@echo \"Linking ...\"\n" >> Makefile
-	printf "	@g++ $object_files -o bin/main -g\n\n" >> Makefile
+	printf "	@g++ $object_files -o bin/main -g -std=c++11\n\n" >> Makefile
 
 	# Write compiling source file rule
 
@@ -89,7 +89,7 @@ then
 
 		printf "${rules[i]}\n" >> Makefile
 		printf "	@echo \"Compiling $src_name.cpp ...\"\n" >> Makefile
-		printf "	@g++ -c ${files[i]} -o $current_obj_path $@ -g\n\n" >> Makefile
+		printf "	@g++ -c ${files[i]} -o $current_obj_path $@ -g -std=c++11\n\n" >> Makefile
 	done
 
 	# Write clean rule
