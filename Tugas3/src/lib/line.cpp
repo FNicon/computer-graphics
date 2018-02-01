@@ -55,7 +55,7 @@ void Line::DrawX(Framebuffer& buf, int color, int thickness, bool main)
 	else if (y_end > y) sign = 1;
 	else sign = 0;
 
-	for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
+	for(int t=0; t<thickness;t++) buf.Write(y + t, x, color, main);
 
 	while(x < x_end)
 	{
@@ -68,7 +68,7 @@ void Line::DrawX(Framebuffer& buf, int color, int thickness, bool main)
 			p += const2;
 		}
 
-		for(int t=0; t<thickness;t++) buf.Write(y, x + t, color, main);
+		for(int t=0; t<thickness;t++) buf.Write(y + t, x, color, main);
 	}
 }
 
