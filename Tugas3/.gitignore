@@ -1,5 +1,8 @@
 /build
 
+# makegen
+/bin
+
 # CMake
 CMakeCache.txt
 CMakeFiles
