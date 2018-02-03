@@ -41,6 +41,5 @@ public:
      */
     friend ostream& operator<< (ostream& _os, const Polygon& _obj);
 
-protected:
     vector<Point> points;
 };
