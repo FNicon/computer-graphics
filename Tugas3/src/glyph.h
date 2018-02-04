@@ -23,7 +23,7 @@ public:
      * @param _x  x-axis.
      * @param _y  y-axis.
      */
-    void Draw (Framebuffer& _buf, int _x, int _y) const;
+    void Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inColor, bool _main) const;
 
     /**
      * Set object from input stream.

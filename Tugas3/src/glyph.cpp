@@ -6,8 +6,10 @@
 
 #include "glyph.h"
 
+#define MAX_X 16
+#define MAX_Y 32
 
-void Glyph::Draw (Framebuffer& _buf, int _x, int _y) const {
+void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inColor, bool _main) const {
     for (const Polygon& polygon : polygons) {
         polygon.Draw(_buf, _x, _y);
     }
@@ -30,6 +32,21 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y) const {
 //             buf.Write(_y + j, _x + i, 0xFFFFFF, colorize);
 //         }
 //     }
+    int x;
+    int y;
+    bool startColor;
+    //printf("WOW");
+    for (y = _y; y < _y + MAX_Y; y++) {
+        startColor = false;
+        for (x = _x; x < _x + MAX_X; x++) {
+            if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
+                startColor = !startColor;
+            }
+            if (startColor) {
+                _buf.Write(y,x,_inColor,_main);
+            }
+        }
+    }
 }
 
 istream& operator>> (istream& _is, Glyph& _obj) {

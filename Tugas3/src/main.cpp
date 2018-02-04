@@ -4,27 +4,59 @@
 
 #include "lib/framebuffer.h"
 #include "lib/line.h"
-#include "raster.h"
+#include "font.h"
 
 using namespace std;
 
-int main()
+int main (int argc, char** argv)
 {
-	Framebuffer buf;
+	if (argc != 3) {
+    cerr << "Usage: " << argv[0] << " FONT_PATH GLYPH" << endl;
+    return 1;
+  }
 
-	int x1 = 55;
-	int y1 = 147;
-	int x2 = 550;
-	int y2 = 80;
-	int phase = 0;
+  const char* font_path = argv[1];
+  const char glyph = argv[2][0];
 
-	Line line(x1, y1, x2, y2);
-	Line line2(550,80,478,569);
-	Line line3(478,569,387,216);
-	Line line4(387,216,64,492);
-	Line line5(64,492,55,147);
-	Raster raster(0,0,600,600);
-	int t = 1;
+  // Load font.
+
+  ifstream in;
+	in.open(font_path);
+
+  if (!in.is_open()) {
+    cerr << argv[0] << ": Unable to load file: " << font_path << endl;
+    return 1;
+  }
+
+  Font font;
+  in >> font;
+
+  if (!in) {
+    cerr << argv[0] << ": Unable to parse file" << endl;
+    return 1;
+  }
+
+  // Print font.
+
+  Framebuffer buf;
+  font[glyph].Draw(buf, 0, 0, 0xFFFFFF, 0x534200, buf.BUF_MAIN);
+
+  // Sleep.
+  sleep(3);
+
+	// int x1 = 55;
+	// int y1 = 147;
+	// int x2 = 550;
+	// int y2 = 80;
+	// int phase = 0;
+
+	// Line line(x1, y1, x2, y2);
+	// Line line2(550,80,478,569);
+	// Line line3(478,569,387,216);
+	// Line line4(387,216,64,492);
+	// Line line5(64,492,55,147);
+	// Raster raster(0,0,600,600);
+	// int t = 1;
 	
 	/*for(int t=1;t<=5;t++)
 	{
@@ -32,18 +64,18 @@ int main()
 
 		while(cnt--)
 		{*/
-			line.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			line2.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			line3.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			line4.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			line5.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			// line.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			// line2.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			// line3.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			// line4.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			// line5.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// if (buf.isColor(10,10,0x534200,buf.BUF_MAIN)) {
 			// 	line.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// 	line2.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// 	line3.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// }
-			sleep(3);
-			raster.Coloring(buf, 0x534200,0xFFFFFF,buf.BUF_MAIN);
+			// sleep(3);
+			// raster.Coloring(buf, 0x534200,0xFFFFFF,buf.BUF_MAIN);
 
 
 			/*line.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
