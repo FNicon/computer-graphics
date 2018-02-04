@@ -18,6 +18,7 @@ int main()
 	int phase = 0;
 
 	Line line(x1, y1, x2, y2);
+	Line line2(0,0,300,100);
 	
 	for(int t=1;t<=5;t++)
 	{
@@ -25,9 +26,14 @@ int main()
 
 		while(cnt--)
 		{
-			line.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
+			line.Draw(buf, 0x5342f4, t, buf.BUF_MAIN);
+			if (buf.isColor(0,0,0x5342f4,buf.BUF_MAIN)) {
+				line2.Draw(buf, 0x5342f4, t, buf.BUF_MAIN);
+			}
+			/*line.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
+			line2.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
 			
-			if (phase == 0)
+			/*if (phase == 0)
 			{
 				line.x1 += 1;
 				if (line.x1 >= 200) phase = 1;
@@ -47,9 +53,13 @@ int main()
 				line.y1 -= 1;
 				if (line.y1 <= 0) phase = 0;
 			}
-
+			if (buf.isColor(100,100,0x5342f4,buf.BUF_BACK)) {
+				//printf("AAAAAAAAAAAAAAAAAAAAAAAAa\n");
+				line2.x1 = line2.x1 + 1;
+				//line2.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
+			}
 			buf.Flush();
-			usleep(10000);
+			usleep(10000);*/
 		}
 
 		sleep(2);

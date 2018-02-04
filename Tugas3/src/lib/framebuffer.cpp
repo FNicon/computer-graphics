@@ -100,16 +100,20 @@ void Framebuffer::Flush()
 
 bool Framebuffer::isColor(int row, int column, int color, bool main) {
     int start_byte = (column + var_info.xoffset) * (var_info.bits_per_pixel / 8) + (row + var_info.yoffset) * fixed_info.line_length;
+    
     // Determine RGB from color
     int red = (color & 0xFF0000) >> 16;
     int green = (color & 0xFF00) >> 8;
     int blue = color & 0xFF;
+    
     if(main) // Write to main buffer
     {
-        return ((*(main_buffer + start_byte) == blue) && (*(main_buffer + start_byte + 1) == green) && (*(main_buffer + start_byte + 2) == red) && (*(main_buffer + start_byte + 3) == 0));
+        //printf("%d %d %d 0\n",blue, green, red);
+        //printf("%d %d %d %d\n",*(main_buffer+start_byte), *(main_buffer+start_byte + 1),*(main_buffer+start_byte +2),*(main_buffer+start_byte+3));
+        return ((*(main_buffer + start_byte + 1) == green) && (*(main_buffer + start_byte + 2) == red) && (*(main_buffer + start_byte + 3) == 0));
     }
     else // Write to back buffer
     {
-        return ((*(back_buffer + start_byte) == blue) && (*(back_buffer + start_byte + 1) == green) && (*(back_buffer + start_byte + 2) == red) && (*(back_buffer + start_byte + 3) == 0));
+        return ((*(back_buffer + start_byte + 1) == green) && (*(back_buffer + start_byte + 2) == red) && (*(back_buffer + start_byte + 3) == 0));
     }
 }
