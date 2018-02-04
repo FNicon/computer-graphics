@@ -11,6 +11,25 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y) const {
     for (const Polygon& polygon : polygons) {
         polygon.Draw(_buf, _x, _y);
     }
+    // Rastering
+//     bool colorize;
+//     for (j=0; j< _y; j++){
+//         colorize = false;
+//         for (i=0; i<_x; i++) {
+//             Point point;
+//             // If the pixel is line color
+//             if (std::find(points.begin(), points.end(), point) != points.end()) {
+//                 //Change color
+//                 if (!colorize) {
+//                     colorize = true;
+//                 } else {
+//                     colorize = false;
+//                 }
+//             }
+
+//             buf.Write(_y + j, _x + i, 0xFFFFFF, colorize);
+//         }
+//     }
 }
 
 istream& operator>> (istream& _is, Glyph& _obj) {
