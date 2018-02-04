@@ -31,4 +31,6 @@ class Framebuffer
         void Write(int row, int column, int color, bool main);
 
         void Flush(); // Flush secondary buffer to main buffer
+
+        bool isColor(int row, int column, int color, bool main);
 };
