@@ -14,7 +14,7 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
     for (const Polygon& polygon : polygons) {
         polygon.Draw(_buf, _x, _y);
     }
-    sleep(1);
+    //sleep(1);
     //Raster raster(_x,_y,MAX_X,MAX_Y);
     //raster.Coloring(_buf, _borderColor,_inColor,_main);
     // Rastering
@@ -42,8 +42,8 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
     for (y = _y; y < _y + MAX_Y; y++) {
         startColor = false;
         for (x = _x; x < _x + MAX_X; x++) {
-            if (_buf.isColor(y,x,_inColor,_buf.BUF_MAIN)) {
-            //if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
+            //if (_buf.isColor(y,x,_borderColor,_buf.BUF_MAIN)) {
+            if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
                 startColor = !startColor;
                 //printf("WOW");
             } else {
@@ -54,6 +54,7 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
             }
         }
     }
+    //sleep(1);
 }
 
 istream& operator>> (istream& _is, Glyph& _obj) {
