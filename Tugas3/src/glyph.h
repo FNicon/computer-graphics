@@ -42,7 +42,7 @@ public:
      */
     friend ostream& operator<< (ostream& _os, const Glyph& _obj);
 
-    bool IsNotExceptionalAllPolygon(int x, int y);
+    bool IsNotExceptionalAllPolygon(int x, int y) const;
 
 protected:
     vector<Polygon> polygons;
