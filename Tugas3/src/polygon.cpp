@@ -78,7 +78,7 @@ ostream& operator<< (ostream& _os, const Polygon& _obj) {
     return _os;
 }
 
-bool Polygon::IsPolygonPoint(Point p) {
+bool Polygon::IsPolygonPoint(Point p) const {
     int index = 0;
     while ((index < points.size()) && (points[index].x != p.x) && (points[index].y != p.y)) {
         index = index + 1;
@@ -86,7 +86,7 @@ bool Polygon::IsPolygonPoint(Point p) {
     return(index != points.size());
 }
 
-Point Polygon::GetPreviousPoint(Point p) {
+Point Polygon::GetPreviousPoint(Point p) const {
     int index = 0;
     while ((index < points.size()) && (points[index].x != p.x) && (points[index].y != p.y)) {
         index = index + 1;
@@ -98,7 +98,7 @@ Point Polygon::GetPreviousPoint(Point p) {
     }
 }
 
-Point Polygon::GetNextPoint(Point p) {
+Point Polygon::GetNextPoint(Point p) const {
     int index = 0;
     while ((points[index].x != p.x) && (points[index].y != p.y) && (index < points.size())) {
         index = index + 1;
@@ -110,7 +110,7 @@ Point Polygon::GetNextPoint(Point p) {
     }
 }
 
-bool Polygon::IsExceptionalPoint(int x, int y) {
+bool Polygon::IsExceptionalPoint(int x, int y) const {
     Point p;
     p.x = x;
     p.y = y;
