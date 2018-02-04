@@ -12,7 +12,8 @@ void Polygon::Draw (Framebuffer& _buf, int _x, int _y) const {
     auto it = points.begin();
 
     if (it != points.end()) {
-        auto prev = *it;
+        auto head = *it;
+        auto prev = head;
 
         for (++it; it != points.end(); ++it) {
             const auto& self = *it;
@@ -23,6 +24,9 @@ void Polygon::Draw (Framebuffer& _buf, int _x, int _y) const {
             // Put previous.
             prev = self;
         }
+
+        Line line(_x + prev.x, _y + prev.y, _x + head.x, _y + head.y);
+        line.Draw(_buf, 0xffffff, 1, _buf.BUF_MAIN);
     }
 }
 
