@@ -39,7 +39,7 @@ istream& operator>> (istream& _is, Font& _obj) {
         }
     }
 
-    return _is;
+    return _is >> reset;
 }
 
 ostream& operator<< (ostream& _os, const Font& _obj) {
