@@ -26,5 +26,5 @@ else
     echo "Project is built." 1>&2
     echo 1>&2
 
-    sudo build/src/main
+    sudo build/src/main "$@"
 fi
