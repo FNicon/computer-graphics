@@ -108,8 +108,8 @@ bool Framebuffer::isColor(int row, int column, int color, bool main) {
     
     if(main) // Write to main buffer
     {
-        //printf("%d %d %d 0\n",blue, green, red);
-        //printf("%d %d %d %d\n",*(main_buffer+start_byte), *(main_buffer+start_byte + 1),*(main_buffer+start_byte +2),*(main_buffer+start_byte+3));
+        printf("BGR %d %d %d 0\n",blue, green, red);
+        printf("BUFFER %d %d %d %d\n",*(main_buffer+start_byte), *(main_buffer+start_byte + 1),*(main_buffer+start_byte +2),*(main_buffer+start_byte+3));
         return ((*(main_buffer + start_byte + 1) == green) && (*(main_buffer + start_byte + 2) == red) && (*(main_buffer + start_byte + 3) == 0));
     }
     else // Write to back buffer

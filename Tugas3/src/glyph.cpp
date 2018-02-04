@@ -5,6 +5,7 @@
 #include "parsetool.h"
 
 #include "glyph.h"
+#include <unistd.h>
 
 #define MAX_X 16
 #define MAX_Y 32
@@ -13,6 +14,9 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
     for (const Polygon& polygon : polygons) {
         polygon.Draw(_buf, _x, _y);
     }
+    sleep(1);
+    //Raster raster(_x,_y,MAX_X,MAX_Y);
+    //raster.Coloring(_buf, _borderColor,_inColor,_main);
     // Rastering
 //     bool colorize;
 //     for (j=0; j< _y; j++){
@@ -32,15 +36,18 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
 //             buf.Write(_y + j, _x + i, 0xFFFFFF, colorize);
 //         }
 //     }
-    int x;
-    int y;
+    int x = _x;
+    int y = _y;
     bool startColor;
-    //printf("WOW");
     for (y = _y; y < _y + MAX_Y; y++) {
         startColor = false;
         for (x = _x; x < _x + MAX_X; x++) {
-            if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
+            if (_buf.isColor(y,x,_inColor,_buf.BUF_MAIN)) {
+            //if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
                 startColor = !startColor;
+                //printf("WOW");
+            } else {
+                //printf("eksDE\n" );
             }
             if (startColor) {
                 _buf.Write(y,x,_inColor,_main);

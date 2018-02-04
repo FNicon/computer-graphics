@@ -8,6 +8,7 @@
 
 #include "lib/framebuffer.h"
 #include "polygon.h"
+#include "raster.h"
 
 using namespace std;
 
