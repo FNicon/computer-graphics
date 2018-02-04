@@ -41,6 +41,8 @@ public:
      */
     friend ostream& operator<< (ostream& _os, const Glyph& _obj);
 
+    bool IsNotExceptionalAllPolygon(int x, int y);
+
 protected:
     vector<Polygon> polygons;
 };

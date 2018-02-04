@@ -104,3 +104,11 @@ ostream& operator<< (ostream& _os, const Glyph& _obj) {
 
     return _os;
 }
+
+bool Glyph::IsNotExceptionalAllPolygon(int x, int y) {
+    int index;
+    while (index < polygons.size() && !(polygons[index].IsExceptionalPoint(x,y))) {
+        index = index + 1;
+    }
+    return (index == polygons.size());
+}

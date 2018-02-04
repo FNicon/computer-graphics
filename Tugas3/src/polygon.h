@@ -41,5 +41,10 @@ public:
      */
     friend ostream& operator<< (ostream& _os, const Polygon& _obj);
 
+    bool IsPolygonPoint(Point p);
+    Point GetPreviousPoint (Point p);
+    Point GetNextPoint(Point p);
+    bool IsExceptionalPoint(int x, int y);
+
     vector<Point> points;
 };

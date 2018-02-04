@@ -77,3 +77,62 @@ ostream& operator<< (ostream& _os, const Polygon& _obj) {
 
     return _os;
 }
+
+bool Polygon::IsPolygonPoint(Point p) {
+    int index = 0;
+    while ((index < points.size()) && (points[index].x != p.x) && (points[index].y != p.y)) {
+        index = index + 1;
+    }
+    return(index != points.size());
+}
+
+Point Polygon::GetPreviousPoint(Point p) {
+    int index = 0;
+    while ((index < points.size()) && (points[index].x != p.x) && (points[index].y != p.y)) {
+        index = index + 1;
+    }
+    if (index <= 0) {
+        return (points[points.size() -1]);
+    } else {
+       return (points[index-1]);
+    }
+}
+
+Point Polygon::GetNextPoint(Point p) {
+    int index = 0;
+    while ((points[index].x != p.x) && (points[index].y != p.y) && (index < points.size())) {
+        index = index + 1;
+    }
+    if (index >= points.size() - 1) {
+        return (points[0]);
+    } else {
+       return (points[index+1]);
+    }
+}
+
+bool Polygon::IsExceptionalPoint(int x, int y) {
+    Point p;
+    p.x = x;
+    p.y = y;
+    if (IsPolygonPoint(p)) {
+        Point previousPoint = GetPreviousPoint(p);
+        Point nextPoint = GetNextPoint(p);
+        int d1x = previousPoint.x - p.x;
+        int d1y = previousPoint.y - p.y;
+        int d2x = nextPoint.x - p.x;
+        int d2y = nextPoint.y - p.y;
+        if ((d1x >= 0) && (d1y >= 0) && (d2x >=0) && (d2y >= 0)) {
+            return (true);
+        } else if ((d1x >= 0) && (d1y <= 0) && (d2x >=0) && (d2y <= 0)) {
+            return (true);
+        } else if ((d1x <= 0) && (d1y <= 0) && (d2x <=0) && (d2y <= 0)) {
+            return (true);
+        } else if ((d1x <= 0) && (d1y >= 0) && (d2x <= 0) && (d2y >= 0)) {
+            return (true);
+        } else {
+            return (false);
+        }
+    } else {
+        return (false);
+    }
+}

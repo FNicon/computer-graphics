@@ -16,7 +16,7 @@ int main (int argc, char** argv)
   }
 
   const char* font_path = argv[1];
-  const char glyph = argv[2][0];
+  const char* glyph = argv[2];
 
   // Load font.
 
@@ -39,7 +39,9 @@ int main (int argc, char** argv)
   // Print font.
 
   Framebuffer buf;
-  font[glyph].Draw(buf, 0, 0, 0xFFFFFF, 0x534200, buf.BUF_MAIN);
+  for (int i=0;i<strlen(glyph);i++) {
+  	font[glyph[i]].Draw(buf, i*16, 0, 0xFFFFFF, 0x534200, buf.BUF_MAIN);
+  }
 
   // Sleep.
   sleep(3);
