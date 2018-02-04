@@ -4,6 +4,7 @@
 
 #include "lib/framebuffer.h"
 #include "lib/line.h"
+#include "raster.h"
 
 using namespace std;
 
@@ -11,25 +12,30 @@ int main()
 {
 	Framebuffer buf;
 
-	int x1 = 0;
-	int y1 = 0;
+	int x1 = 10;
+	int y1 = 10;
 	int x2 = 100;
 	int y2 = 100;
 	int phase = 0;
 
 	Line line(x1, y1, x2, y2);
-	Line line2(0,0,300,100);
+	Line line2(100,100,200,10);
+	Line line3(200,10,10,10);
+	Raster raster(0,0,200,200);
+	int t = 1;
 	
-	for(int t=1;t<=5;t++)
+	/*for(int t=1;t<=5;t++)
 	{
 		int cnt = 800;
 
 		while(cnt--)
-		{
+		{*/
 			line.Draw(buf, 0x5342f4, t, buf.BUF_MAIN);
-			if (buf.isColor(0,0,0x5342f4,buf.BUF_MAIN)) {
+			if (buf.isColor(10,10,0x5342f4,buf.BUF_MAIN)) {
 				line2.Draw(buf, 0x5342f4, t, buf.BUF_MAIN);
+				line3.Draw(buf, 0x5342f4, t, buf.BUF_MAIN);
 			}
+			raster.Coloring(buf, 0x5342f4,0xFFFFFF,buf.BUF_MAIN);
 			/*line.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
 			line2.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
 			
@@ -60,10 +66,10 @@ int main()
 			}
 			buf.Flush();
 			usleep(10000);*/
-		}
+		/*}
 
 		sleep(2);
-	}
+	}*/
 
 	return 0;
 }

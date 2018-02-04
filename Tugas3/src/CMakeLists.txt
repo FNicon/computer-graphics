@@ -10,4 +10,5 @@ add_executable (
   main.cpp
   point.cpp
   polygon.cpp
+  raster.cpp
 )
