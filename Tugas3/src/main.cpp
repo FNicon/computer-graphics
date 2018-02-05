@@ -40,7 +40,7 @@ int main (int argc, char** argv)
 
   Framebuffer buf;
   for (int i=0;i<strlen(glyph);i++) {
-  	font[glyph[i]].Draw(buf, i*16, 0, 0xFFFFFF, 0x534200, buf.BUF_MAIN);
+  	font[glyph[i]].Draw(buf, i*16, 0, 0xFFFFFF, 0x0000FF, buf.BUF_MAIN);
   }
 
   // Sleep.
@@ -48,13 +48,13 @@ int main (int argc, char** argv)
   /*Raster raster (0,0,400,400);
   raster.Coloring(buf,0xffffff,0x534200,buf.BUF_MAIN);*/
 
-	 int x1 = 55;
+/*	 int x1 = 55;
 	 int y1 = 147;
 	 int x2 = 250;
 	 int y2 = 80;
 	// int phase = 0;
 
-	 Line line(x1, y1, x2, y2);
+	/* Line line(x1, y1, x2, y2);
 	 Line line2(250,80,278,369);
 	 Line line3(278,369,387,216);
 	 Line line4(387,216,64,292);
@@ -68,7 +68,7 @@ int main (int argc, char** argv)
 
 		while(cnt--)
 		{*/
-			 line.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
+			 /*line.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
 			 line2.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
 			 line3.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
 			 line4.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);

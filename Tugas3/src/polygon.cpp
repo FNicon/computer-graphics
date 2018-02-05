@@ -117,11 +117,18 @@ bool Polygon::IsExceptionalPoint(int x, int y) const {
     if (IsPolygonPoint(p)) {
         Point previousPoint = GetPreviousPoint(p);
         Point nextPoint = GetNextPoint(p);
-        int d1x = previousPoint.x - p.x;
+        //int d1x = previousPoint.x - p.x;
         int d1y = previousPoint.y - p.y;
-        int d2x = nextPoint.x - p.x;
+        //int d2x = nextPoint.x - p.x;
         int d2y = nextPoint.y - p.y;
-        if ((d1x >= 0) && (d1y >= 0) && (d2x >=0) && (d2y >= 0)) {
+        if ((d1y > 0) && (d2y > 0)) {
+            return (true);
+        } else if ((d1y < 0) && (d2y < 0)) {
+            return (true);
+        } else {
+            return (false);
+        }
+        /*if ((d1x >= 0) && (d1y >= 0) && (d2x >=0) && (d2y >= 0)) {
             return (true);
         } else if ((d1x >= 0) && (d1y <= 0) && (d2x >=0) && (d2y <= 0)) {
             return (true);
@@ -131,7 +138,7 @@ bool Polygon::IsExceptionalPoint(int x, int y) const {
             return (true);
         } else {
             return (false);
-        }
+        }*/
     } else {
         return (false);
     }
