@@ -43,13 +43,14 @@ void Glyph::Draw (Framebuffer& _buf, int _x, int _y, int _borderColor, int _inCo
         startColor = false;
         for (x = _x; x < _x + MAX_X; x++) {
             //if (_buf.isColor(y,x,_borderColor,_buf.BUF_MAIN)) {
-            if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main) && IsNotExceptionalAllPolygon(x,y)) {
+            if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main)) {
+            //if (_buf.isColor(y,x,_borderColor,_main) && !_buf.isColor(y,x+1,_borderColor,_main) && !IsExceptionalAllPolygon(x,y)) {
                 startColor = !startColor;
                 //printf("WOW");
             } else {
                 //printf("eksDE\n" );
             }
-            if (startColor) {
+            if ((startColor) && (!_buf.isColor(y,x,_borderColor,_main))) {
                 _buf.Write(y,x,_inColor,_main);
             }
         }
@@ -113,7 +114,7 @@ ostream& operator<< (ostream& _os, const Glyph& _obj) {
     return _os;
 }
 
-bool Glyph::IsNotExceptionalAllPolygon(int x, int y) const {
+bool Glyph::IsExceptionalAllPolygon(int x, int y) const {
     /*int index;
     while (index < polygons.size() && !(polygons[index].IsExceptionalPoint(x,y))) {
         index = index + 1;
@@ -121,8 +122,9 @@ bool Glyph::IsNotExceptionalAllPolygon(int x, int y) const {
     return (index == polygons.size());*/
     for (auto& poly : polygons) { 
         if (poly.IsExceptionalPoint(x,y)) { 
-            return false;
-        } 
-        return true; 
+            return true;
+        } else {
+            return false; 
+        }
     }
 }
