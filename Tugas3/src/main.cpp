@@ -48,7 +48,7 @@ int main (int argc, char** argv)
   /*Raster raster (0,0,400,400);
   raster.Coloring(buf,0xffffff,0x534200,buf.BUF_MAIN);*/
 
-	 /*int x1 = 55;
+	 int x1 = 55;
 	 int y1 = 147;
 	 int x2 = 250;
 	 int y2 = 80;
@@ -59,7 +59,7 @@ int main (int argc, char** argv)
 	 Line line3(278,369,387,216);
 	 Line line4(387,216,64,292);
 	 Line line5(64,292,55,147);
-	Raster raster(0,0,400,400);
+	Raster raster(0,55,400,400);
 	int t = 1;
 	
 	/*for(int t=1;t<=5;t++)
@@ -68,18 +68,18 @@ int main (int argc, char** argv)
 
 		while(cnt--)
 		{*/
-			 /*line.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			 line2.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			 line3.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			 line4.Draw(buf, 0x534200, t, buf.BUF_MAIN);
-			 line5.Draw(buf, 0x534200, t, buf.BUF_MAIN);
+			 line.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
+			 line2.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
+			 line3.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
+			 line4.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
+			 line5.Draw(buf, 0xFFFFFF, t, buf.BUF_MAIN);
 			// if (buf.isColor(10,10,0x534200,buf.BUF_MAIN)) {
 			// 	line.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// 	line2.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// 	line3.Draw(buf, 0x534200, t, buf.BUF_MAIN);
 			// }
 			 sleep(3);
-			 raster.Coloring(buf, 0x534200,0xFFFFFF,buf.BUF_MAIN);
+			 raster.Coloring(buf, 0xFFFFFF,0x534200,buf.BUF_MAIN);
 
 
 			/*line.Draw(buf, 0x5342f4, t, buf.BUF_BACK);
